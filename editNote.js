@@ -31,8 +31,9 @@ Array.from(noteCards).forEach(function (element) {
     element.addEventListener("click", function () {
         elem= element.querySelector(".card-body");
         // document.getElementsByTagName("body")[0].classList.add("bodyoverlay");
-        on();
         elem.classList.add("zoom");
+        
+        on();
         // element.classList.add("zoom");
         let noTextAreas = document.getElementsByClassName('textarea').length;
         let cardTxt = element.querySelector(".card-text");

@@ -18,6 +18,16 @@ function askName(un) {
 
 document.getElementsByTagName("body")[0].addEventListener("onload", askName(un));
 
+function getStorageObject(name){
+  let notes = localStorage.getItem("notes");
+  if (notes == null) {
+    notesObj = [];
+  } else {
+    notesObj = JSON.parse(notes);
+  }
+
+
+}
 
 function getAll(){
   let notes = localStorage.getItem("notes");
@@ -79,7 +89,7 @@ addBtn.addEventListener("click", function (e) {
 
   notesObj.push(addTxt.value);
   localStorage.setItem("notes", JSON.stringify(notesObj));
-  addTxt.value = "";
+  addTxt.value = "";   //will empty the input fields once the add btn has been pressed. 
 
   titlesObj.push(addTitle.value);
   localStorage.setItem("titles", JSON.stringify(titlesObj));
@@ -87,6 +97,7 @@ addBtn.addEventListener("click", function (e) {
 
   checksObj.push(checkV.checked);
   localStorage.setItem("checks", JSON.stringify(checksObj));
+  checkV.checked=false;
  
   idsObj.push(cid);
   localStorage.setItem("id", JSON.stringify(idsObj));
@@ -135,7 +146,7 @@ function showNotes(uid) {
                     <p class=""> ${unameObj[index]}</p>
                     <h5 class="card-title"> ${titlesObj[index]}</h5>
                     <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
-                    <p class="card-text"> ${element}</p>
+                    <p class="card-text"> ${element}</p>                
                     <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
                     <img src="clock.png" alt="time:">
                     <span style="font-size:13px;" class="card-text"> ${tObj[index]}</span>
@@ -153,7 +164,7 @@ function showNotes(uid) {
                       <p class=""> ${unameObj[index]}</p>
                       <h5 class="card-title"> ${titlesObj[index]}${text}</h5>
                       <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
-                      <p class="card-text"> ${element}</p>
+                      <p class="card-text"> ${element}</p>                   
                       <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
                       <img src="clock.png" alt="time:">
                       <span style="font-size:13px;" class="card-text"> ${

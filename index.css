@@ -21,23 +21,44 @@ box-shadow: 5px 2px 2px lightblue;
 
 
 }
+
+.card-text{
+    max-height: 120px;
+    overflow-y: hidden;
+}
+
+
 #id{
     flex-direction: column;
 }
+
 .zoom{
     display: inline-block;
     position: fixed;
     top:10%;
     right:180px;
+    left: 180px;
+    /* right: auto;
+    left: auto; */
     bottom:10%;
     width: 75vw;
-    height: 50vh;
+    height: 55vh;
     /* margin: auto; */
     border:2px solid #0d6efd;
     border-radius: 10px;
     background-color: white;
     z-index: 3;
 }
+
+
+@media (max-width:767px){
+    .zoom{
+        right: auto;
+        left: auto;
+    }
+
+}
+
 
 #overlay {
     position: fixed; /* Sit on top of the page content */
