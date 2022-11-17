@@ -305,7 +305,8 @@ search.addEventListener("input", function () {
   // console.log('Input event fired!', inputVal);
   let noteCards = document.getElementsByClassName("noteCard");
   Array.from(noteCards).forEach(function (element) {
-    let cardTxt = element.getElementsByTagName("p")[0].innerText;
+    // let cardTxt = element.getElementsByTagName("p")[0].innerText;
+    let cardTxt = element.querySelector(".card-text").innerText;
     if (cardTxt.includes(inputVal)) {
       element.style.display = "block";
     } else {
