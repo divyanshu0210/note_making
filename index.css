@@ -35,6 +35,28 @@ box-shadow: 5px 2px 2px lightblue;
     overflow-y: hidden;
 }
 
+.card-title{
+
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+.copybtn{
+position: absolute;
+top:15px;
+right:10px;
+border:none;
+border-radius: 20px;
+z-index: 20;
+/* padding:10px; */
+
+}
+
+.copybtn:hover{
+    border:2px solid rgb(21, 8, 8) ;
+}
+
 
 #id{
     flex-direction: column;

@@ -132,10 +132,11 @@ function showNotes(uid) {
         console.log("y");
         text = "(imp)";
         html += `
-            <div onclick="update()" class="noteCard my-2 mx-2 card highlight" style="width: 18rem;order:0;">
+            <div onclick="update()"  onmouseover="showCopybtn.call(this)" onmouseout="hideCopybtn.call(this)" class="noteCard my-2 mx-2 card highlight" style="width: 18rem;order:0;">
                     <div class="card-body ">
                     <p class=""> ${unameObj[index]}</p>
-                    <h5 class="card-title"> ${titlesObj[index]}</h5>
+                    <span class="card-title"> ${titlesObj[index]}</span>
+                    <button style="display:none;" onclick="copytxt.call(this)" class="copybtn">Copy</button>
                     <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
                     <p class="card-text"> ${element}</p>                
                     <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
@@ -149,12 +150,11 @@ function showNotes(uid) {
         console.log("y");
         text = "";
         html += `
-              <div onclick="update()" class="noteCard my-2 mx-2 card" style="width: 18rem;order:${
-                index + 1
-              };">
+              <div onclick="update()"  onmouseover="showCopybtn.call(this)" onmouseout="hideCopybtn.call(this)" class="noteCard my-2 mx-2 card" style="width: 18rem;order:${index + 1};">
                       <div class="card-body">
                       <p class=""> ${unameObj[index]}</p>
-                      <h5 class="card-title"> ${titlesObj[index]}${text}</h5>
+                      <span class="card-title"> ${titlesObj[index]}${text}</span>
+                      <button style="display:none;" onclick="copytxt.call(this)" class="copybtn">Copy</button>
                       <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
                       <p class="card-text"> ${element}</p>                   
                       <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
@@ -318,6 +318,17 @@ function removeDuplicates(arr) {
 //   }
 // }
 
+
+// function search(e) {
+// 	let searched = document.getElementById("search").value.trim();
+//   if (searched !== "") {
+//   	let text = document.getElementById("text").innerHTML;
+//   	let re = new RegExp(searched,"g"); // search for all instances
+// 		let newText = text.replace(re, `<mark>${searched}</mark>`);
+// 		document.getElementById("text").innerHTML = newText;
+//   }
+// }
+
 let search = document.getElementById("searchTxt");
 
 search.addEventListener("input", function () {
@@ -421,4 +432,8 @@ Further Features:
 2. Mark a note as Important
 3. Separate notes by user
 4. Sync and host to web server 
+5.mark the search text highlighted
+6. make the being editted card draggable.
+7.share a note 
+8. copy a note
 */

@@ -21,6 +21,39 @@ function getA() {
     
 }
 
+function showCopybtn(){
+    // console.log("yeeeess");
+
+    var x = this.querySelector(".copybtn");
+    x.style.display = "inline-block";
+    x.innerHTML="Copy";
+
+
+ }
+
+ function hideCopybtn(){
+    // console.log("yeeeess");
+
+    var x = this.querySelector(".copybtn");
+    x.style.display = "none";
+
+
+ }
+
+ function copytxt(){
+   let txt= this.nextElementSibling.nextElementSibling.innerHTML;
+   console.log("text"+txt);
+//    txt.select();
+//    txt.setSelectionRange(0, 99999); // For mobile devices
+ 
+    // Copy the text inside the text field
+   navigator.clipboard.writeText(txt);
+   this.innerHTML="Copied";
+ }
+
+
+
+
 function update(){
 
 
@@ -28,11 +61,10 @@ let noteCards = document.getElementsByClassName("noteCard");
 // console.log(noteCards);
 Array.from(noteCards).forEach(function (element) {
     // console.log(element);
-    element.addEventListener("click", function () {
+    element.addEventListener("dblclick", function () {
         elem= element.querySelector(".card-body");
         // document.getElementsByTagName("body")[0].classList.add("bodyoverlay");
         elem.classList.add("zoom");
-        
         // on();
         // element.classList.add("zoom");
         let noTextAreas = document.getElementsByClassName('textarea').length;
@@ -43,7 +75,7 @@ Array.from(noteCards).forEach(function (element) {
         if (noTextAreas == 0) {
             // console.log(cardTxt);
             let html = cardTxt.innerHTML;
-            console.log(html);
+            // console.log(html);
             cardTxt.innerHTML = ` <textarea autofocus class="textarea form-control" id="textarea" column="10" rows="3">${html}</textarea>`;
         }
         //listen for the blur event on textarea
@@ -61,7 +93,7 @@ Array.from(noteCards).forEach(function (element) {
             });
             localStorage.setItem("notes", JSON.stringify(notesObj));
 
-            console.log(localStorage);
+            // console.log(localStorage);
 
             elem.classList.remove("zoom");
             off();
@@ -71,7 +103,16 @@ Array.from(noteCards).forEach(function (element) {
         });
 
     });
+    
+        
 });
+
+
+
+
+
+
+
 }
 
 function on() {
@@ -81,3 +122,8 @@ function on() {
   function off() {
     document.getElementById("overlay").style.display = "none";
   }
+
+
+
+
+
