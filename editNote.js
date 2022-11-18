@@ -25,15 +25,15 @@ function update(){
 
 
 let noteCards = document.getElementsByClassName("noteCard");
-console.log(noteCards);
+// console.log(noteCards);
 Array.from(noteCards).forEach(function (element) {
-    console.log(element);
+    // console.log(element);
     element.addEventListener("click", function () {
         elem= element.querySelector(".card-body");
         // document.getElementsByTagName("body")[0].classList.add("bodyoverlay");
         elem.classList.add("zoom");
         
-        on();
+        // on();
         // element.classList.add("zoom");
         let noTextAreas = document.getElementsByClassName('textarea').length;
         let cardTxt = element.querySelector(".card-text");
@@ -50,6 +50,7 @@ Array.from(noteCards).forEach(function (element) {
         let textarea = document.getElementById('textarea');
         textarea.setSelectionRange(textarea.value.length,textarea.value.length);
         textarea.focus();
+        on();
         textarea.addEventListener('blur', function () {
             cardTxt.innerHTML = textarea.value;
 

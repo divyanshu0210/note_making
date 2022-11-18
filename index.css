@@ -15,6 +15,13 @@ box-sizing: border-box;
 
 }
 
+.listSelf{
+    /* background-color: blue !important;  */
+    width:23em;
+    height: 2em;
+    opacity: 1;
+}
+
 .card:hover{
 border-color: black;
 border: 3px solid #0d6efd;
@@ -49,6 +56,11 @@ box-shadow: 5px 2px 2px lightblue;
     border-radius: 10px;
     background-color: white;
     z-index: 3;
+}
+
+.lbactive {
+    background-color: #0d6efd !important;
+    color:white;
 }
 
 

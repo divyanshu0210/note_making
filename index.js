@@ -18,17 +18,7 @@ function askName(un) {
 
 document.getElementsByTagName("body")[0].addEventListener("onload", askName(un));
 
-function getStorageObject(name){
-  let notes = localStorage.getItem("notes");
-  if (notes == null) {
-    notesObj = [];
-  } else {
-    notesObj = JSON.parse(notes);
-  }
-
-
-}
-
+//will pick up all the local Storage elemnts and create their array objects so that they can be accessed
 function getAll(){
   let notes = localStorage.getItem("notes");
   if (notes == null) {
@@ -76,6 +66,7 @@ function getAll(){
 
 }
 getAll();
+
 // If user adds a note, add it to the localStorage
 let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function (e) {
@@ -84,7 +75,6 @@ addBtn.addEventListener("click", function (e) {
   let checkV = document.getElementById("checkV");
   console.log(checkV.value);
   
-
   getAll();
 
   notesObj.push(addTxt.value);
@@ -134,11 +124,12 @@ function showNotes(uid) {
   askName(uid);
   un=uid;
   getAll();
-
+  
   let html = "";
   notesObj.forEach(function (element, index) {
     if (unameObj[index] == uid)
-      if (checksObj[index]) {
+    if (checksObj[index]) {
+        console.log("y");
         text = "(imp)";
         html += `
             <div onclick="update()" class="noteCard my-2 mx-2 card highlight" style="width: 18rem;order:0;">
@@ -155,6 +146,7 @@ function showNotes(uid) {
                     </div>
                 </div>`;
       } else {
+        console.log("y");
         text = "";
         html += `
               <div onclick="update()" class="noteCard my-2 mx-2 card" style="width: 18rem;order:${
@@ -167,9 +159,7 @@ function showNotes(uid) {
                       <p class="card-text"> ${element}</p>                   
                       <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
                       <img src="clock.png" alt="time:">
-                      <span style="font-size:13px;" class="card-text"> ${
-                        tObj[index]
-                      }</span>
+                      <span style="font-size:13px;" class="card-text"> ${tObj[index]}</span>
                       </div>
                   </div>`;
       }
@@ -234,7 +224,7 @@ function addToList() {
   let html = "";
   temp.forEach(function (element, index) {
     let i = count(element, JSON.parse(localStorage.getItem("uname")));
-    html += `<button type="button" class="list-group-item list-group-item-action" onclick="showNotes('${element}')"><span class="listItemValue">${element}</span><span class="badge badge-primary badge-pill">${i}</span></button>`;
+    html += `<div style="border-radius:4px;" class="listSelf btn-close" data-bs-dismiss="offcanvas" aria-label="Close" data-toggle="button" onclick="activeList(this)"><button data-id="${element}" type="button" class="list-group-item list-group-item-action listbtn" onclick="activeList()" ><span class="listItemValue">${element}</span><span class="badge badge-primary badge-pill">${i}</span></button></div>`;
   });
 
   let ListElm = document.getElementsByClassName("list-group")[0];
@@ -248,6 +238,36 @@ function addToList() {
 function removeDuplicates(arr) {
   return [...new Set(arr)];
 }
+
+// $('.list-group button').on('click', function (e) {
+//   e.preventDefault()
+//   $(this).tab('show');
+//   let b=e.target;
+//   // if($(this).css("background-color")=="white"){
+//   //   $(this).css("background-color", "yellow");
+
+//   // }
+//   // else
+//   // $(this).css("background-color", "white");
+
+//   let f=$(this).attr('data-id');
+//   console.log(b);
+//   console.log(f);
+//   showNotes((String(f)));
+
+
+
+//   // let data =b.getAttribute("data-elem"); 
+//   // console.log(data);
+//   // b.addEventListener("click",showNotes());
+//   // console.log(b);
+//   // let elemdata=$(this).getAttribute('data-elem')
+//   // showNotes(elemdata);
+// });
+
+// function show(e){
+//   showNotes(e);
+// }
 
 // function showListItemNotes(uid) {
 //   askName(uid);
