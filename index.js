@@ -3,7 +3,7 @@ console.log("Welcome to notes app. This is app.js");
 showNotes(un);
 
 //show a prompt as soon as the body starts to load
-var un = prompt("To make your time on this website better, please enter your name.");
+var un = prompt("To make your time on this website better, please enter your NoteBook name.");
 showNotes(un);
 
 //decides the heading
