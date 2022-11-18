@@ -436,4 +436,6 @@ Further Features:
 6. make the being editted card draggable.
 7.share a note 
 8. copy a note
+9. some keyboard shortcuts can be added. 
+10. while adding a note , by keyboard itself the form filed can be switched. 
 */
