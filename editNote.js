@@ -1,5 +1,24 @@
 // let node = document.getElementsByClassName("card");
 
+document.getElementById("primaryAddBtn").addEventListener("click",()=>{
+    if(document.getElementById("primaryAddNote").style.display=="block"){
+        document.getElementById("primaryAddNote").style.display="none";
+        // document.getElementById("primaryAddNote").style.height="0px";
+
+    }
+    else{
+
+        document.getElementById("primaryAddNote").style.display="block";
+        // document.getElementById("primaryAddNote").style.height="274px";
+    }
+    // document.getElementById("primaryAddNote").style.display="block";
+    
+});
+
+
+
+
+
 
 function getA() {
     let notes = localStorage.getItem("notes");
@@ -25,7 +44,10 @@ function showCopybtn(){
     // console.log("yeeeess");
 
     var x = this.querySelector(".copybtn");
+    var y= this.querySelector(".sharebtn");
+
     x.style.display = "inline-block";
+    y.style.display = "inline-block";
     x.innerHTML="Copy";
 
 
@@ -35,7 +57,9 @@ function showCopybtn(){
     // console.log("yeeeess");
 
     var x = this.querySelector(".copybtn");
+    var y= this.querySelector(".sharebtn");
     x.style.display = "none";
+    y.style.display = "none";
 
 
  }
@@ -51,6 +75,11 @@ function showCopybtn(){
    this.innerHTML="Copied";
  }
 
+ function sharetxt(){
+    let sharetxt = this.parentElement.querySelector(".card-text").innerHTML;
+    console.log(sharetxt);
+    window.open("whatsapp://send?text=" + sharetxt,'_blank' );
+}
 
 
 

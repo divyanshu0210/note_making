@@ -1,24 +1,7 @@
 let cid=0;
 console.log("Welcome to notes app. This is app.js");
-showNotes(un);
 
-//show a prompt as soon as the body starts to load
-var un = prompt("To make your time on this website better, please enter your NoteBook name.");
-showNotes(un);
-
-//decides the heading
-function askName(un) {
-  if (un != null && un != "") {
-    // un="Stranger";
-    document.getElementById("heading").innerText = `Welcome to ${un}'s Diary`;
-  } else {
-    document.getElementById("heading").innerText = "Welcome, Stranger!";
-  }
-}
-
-document.getElementsByTagName("body")[0].addEventListener("onload", askName(un));
-
-//will pick up all the local Storage elemnts and create their array objects so that they can be accessed
+//will get all the local Storage object elemnts and create their array objects so that they can be accessed
 function getAll(){
   let notes = localStorage.getItem("notes");
   if (notes == null) {
@@ -67,6 +50,24 @@ function getAll(){
 }
 getAll();
 
+//show a prompt as soon as the body starts to load
+var un = prompt("To make your time on this website better, please enter your name.");
+showNotes(un);
+
+//decides the heading
+function askName(un) {
+  if (un != null && un != "") {
+    // un="Stranger";
+    document.getElementById("heading").innerText = `Welcome to ${un}'s Diary`;
+  } else {
+    document.getElementById("heading").innerText = "Welcome, Stranger!";
+  }
+}
+
+document.getElementsByTagName("body")[0].addEventListener("onload", askName(un));
+
+
+
 // If user adds a note, add it to the localStorage
 let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function (e) {
@@ -74,6 +75,12 @@ addBtn.addEventListener("click", function (e) {
   let addTitle = document.getElementById("addTitle");
   let checkV = document.getElementById("checkV");
   console.log(checkV.value);
+  addBtn.innerHTML="Added!!"
+  setTimeout(() => {
+    document.getElementById("primaryAddNote").style.display="none";
+    
+  }, 2000);
+  setTimeout(()=>{addBtn.innerHTML="Add Note"},1500);
   
   getAll();
 
@@ -136,6 +143,7 @@ function showNotes(uid) {
                     <div class="card-body ">
                     <p class=""> ${unameObj[index]}</p>
                     <span class="card-title"> ${titlesObj[index]}</span>
+                    <button style="display:none;" onclick="sharetxt.call(this)" class="sharebtn"><img style="height: 25px;border-radius:10px;" src="icon.png" alt="..." /></button>
                     <button style="display:none;" onclick="copytxt.call(this)" class="copybtn">Copy</button>
                     <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
                     <p class="card-text"> ${element}</p>                
@@ -143,22 +151,23 @@ function showNotes(uid) {
                     <img src="clock.png" alt="time:">
                     <span style="font-size:13px;" class="card-text"> ${tObj[index]}</span>
                     <img style="height:50px;width:50px;" src="pin.png" alt="time:">
-
+                    
                     </div>
-                </div>`;
-      } else {
-        console.log("y");
-        text = "";
-        html += `
-              <div onclick="update()"  onmouseover="showCopybtn.call(this)" onmouseout="hideCopybtn.call(this)" class="noteCard my-2 mx-2 card" style="width: 18rem;order:${index + 1};">
-                      <div class="card-body">
-                      <p class=""> ${unameObj[index]}</p>
-                      <span class="card-title"> ${titlesObj[index]}${text}</span>
-                      <button style="display:none;" onclick="copytxt.call(this)" class="copybtn">Copy</button>
-                      <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
-                      <p class="card-text"> ${element}</p>                   
-                      <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
-                      <img src="clock.png" alt="time:">
+                    </div>`;
+                  } else {
+                    console.log("y");
+                    text = "";
+                    html += `
+                    <div onclick="update()"  onmouseover="showCopybtn.call(this)" onmouseout="hideCopybtn.call(this)" class="noteCard my-2 mx-2 card" style="width: 18rem;order:${index + 1};">
+                    <div class="card-body">
+                    <p class=""> ${unameObj[index]}</p>
+                    <span class="card-title"> ${titlesObj[index]}${text}</span>
+                    <button style="display:none;" onclick="sharetxt.call(this)" class="sharebtn"><img style="height: 20px;border-radius:10px;" src="icon.png" alt="..." /></button>
+                    <button style="display:none;" onclick="copytxt.call(this)" class="copybtn">Copy</button>
+                    <p style="display:none;" class="noteId"> ${idsObj[index]}</p>
+                    <p class="card-text"> ${element}</p>                   
+                    <button id="${index}"onclick="deleteNote(this.id)" class="d-block btn btn-primary">Delete Note</button>
+                    <img src="clock.png" alt="time:">
                       <span style="font-size:13px;" class="card-text"> ${tObj[index]}</span>
                       </div>
                   </div>`;
@@ -338,7 +347,12 @@ search.addEventListener("input", function () {
   Array.from(noteCards).forEach(function (element) {
     // let cardTxt = element.getElementsByTagName("p")[0].innerText;
     let cardTxt = element.querySelector(".card-text").innerText;
-    if (cardTxt.includes(inputVal)) {
+    cardTxt=cardTxt.toLowerCase();
+    let titleTxt = element.querySelector(".card-title").innerText;
+    titleTxt=titleTxt.toLowerCase(); 
+
+    if (cardTxt.includes(inputVal)|| titleTxt.includes(inputVal)) 
+    {
       element.style.display = "block";
     } else {
       element.style.display = "none";
@@ -428,14 +442,22 @@ dNimp.addEventListener("click", function(){
 
 /*
 Further Features:
-1. Add Title
-2. Mark a note as Important
-3. Separate notes by user
-4. Sync and host to web server 
+1. Add Title*
+2. Mark a note as Important*
+3. Separate notes by user*
+4. Sync and host to web server *
 5.mark the search text highlighted
 6. make the being editted card draggable.
-7.share a note 
-8. copy a note
+7.share a note *
+8. copy a note*
 9. some keyboard shortcuts can be added. 
 10. while adding a note , by keyboard itself the form filed can be switched. 
+11 prompt hatao 
+12 jaise hi nayi notebook bane waise hi show krre list me . no one note criteria. 
+13 add note input from inside a button/icon*
+14 search must include title search also. 
+15 share button
+16 if coming for first time set user name . Otherwise show the starter page . then he can select the notebook himself.
+17 sort feature
+18 title editting
 */
