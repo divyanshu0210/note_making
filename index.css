@@ -18,6 +18,11 @@ box-sizing: border-box;
     float: right;
 }
 
+#primaryAddBtn:hover{
+    background-color: #dee2e6;
+
+}
+
 #primaryAddNote{
     display: none;
     /* height: 0; */
@@ -27,6 +32,22 @@ box-sizing: border-box;
 .badge{
     color:white;
     background-color:#0d6efd;
+}
+
+.mcon{
+    width:60%;
+    float: right;
+    margin-right: -330px;
+
+}
+
+#noteBookBtn{
+    display: inline-block;
+    width: 17%;
+    position: absolute;
+    top: 59%;
+    right: 5%;
+    height: 27%;
 }
 
 .delbtn{

@@ -13,7 +13,35 @@
 </head>
 
 <body>
+    <!-- overlay to be used when required -->
     <div id="overlay"></div>
+
+    <!-- modal to get the usrname -->
+    <div class="modal fade" id="myModal"  tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">!!Welcome!!</h5>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">What would you like YourSelf to be called:</label>
+                      <input type="text"  class="form-control" id="modal-message-text" autofocus required></input >
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <button type="button" class="btn btn-primary" id="modalbtn" data-dismiss="modal">Save changes</button>
+                      </div>
+                     
+                    </div>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- navbar include search bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Magic Notes</a>
@@ -54,6 +82,7 @@
                         <a class="nav-link disabled">Disabled</a>
                     </li>
                 </ul>
+                <!-- search bar -->
                 <form class="d-flex" role="search">
                     <input class="form-control mr-sm-2" id="searchTxt" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -62,13 +91,7 @@
         </div>
     </nav>
 
-
-    <!-- <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
-        aria-controls="offcanvasExample">
-        Link with href
-    </a> -->
-
-
+    <!-- notebook overlay -->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Notebooks</h5>
@@ -76,7 +99,7 @@
         </div>
         <div class="offcanvas-body">
             <div>
-                To make sure that your diary is visible it must have atleast one note. 
+                <!-- To make sure that your diary is visible it must have atleast one note.  -->
                 <hr>
             </div>
             <div class="list-group" >
@@ -100,10 +123,35 @@
             </div>
         </div>
     </div>
+
+    <!-- main area of our webpage -->
     <div class="container my-3">
+
         <!-- here the heading will come -->
-        <h1 id="heading"></h1>
-        <button id="primaryAddBtn" data-toggle="collapse" data-target="#primaryAddNote" aria-expanded="false" aria-controls="collapseExample">+ New Note</button>
+        <h1 id="heading">Welcome!!</h1>
+
+        <!-- add buttons -->
+        <button id="primaryAddBtn" data-toggle="collapse" data-target="#primaryAddNote" aria-expanded="false" aria-controls="collapseExample">+Add Note</button>
+        <button id="primaryAddBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">+New noteBook</button>
+
+        <!-- to add newNoteBook -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content mcon">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <input type="text" style="width:90%;margin:20px auto;" class="form-control" id="modal-messageNoteBook-text" autofocus required placeholder="New NoteBook name. . . "></input >
+                  <button type="button" class="btn btn-primary" id="noteBookBtn" data-dismiss="modal">Save</button>
+            </div>
+        </div>
+        </div>
+
+
+        <!-- to add new note in a notebook -->
         <div class="card collapse" id="primaryAddNote">
             <div class="card-body">
                 <h5 class="card-title">Add a note</h5>
@@ -117,16 +165,18 @@
             </div>
         </div>
         <hr />
+
+        <!-- showing our notes -->
         <h1 class="d-inline">
             <span>Your Notes</span>
-            <!-- <button type="button" class="btn btn-secondary" >Delete All</button> -->
         </h1>
         
         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" active>
-            
             <img style="height: 20px" src="nav.png" alt="..." />
-          </button>
+        </button>
 
+
+        <!-- delete buttons -->
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
                 <nav class="nav flex-column">
@@ -142,6 +192,8 @@
             </div>
         </div>
         <hr />
+
+        <!-- Our notes will display here -->
         <div id="notes" class="row container-fluid"></div>
         <!-- <div id="titles" class="row container-fluid"> </div> -->
     </div>
