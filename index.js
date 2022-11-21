@@ -115,11 +115,13 @@ function askName() {
 
 // If user adds a note, add it to the localStorage
 let addBtn = document.getElementById("addBtn");
-addBtn.addEventListener("click", function (e) {
+addBtn.addEventListener("click", addNotes);
+
+function addNotes() {
   let addTxt = document.getElementById("addTxt");
   let addTitle = document.getElementById("addTitle");
   let checkV = document.getElementById("checkV");
-  console.log(checkV.value);
+  // console.log(checkV.value);
   addBtn.innerHTML = "Added!!"
   setTimeout(() => {
     document.getElementById("primaryAddNote").style.display = "none";
@@ -169,7 +171,7 @@ addBtn.addEventListener("click", function (e) {
   // console.log(checks);
   showNotes(un);
   addToList();
-});
+}
 
 // Function to show elements from localStorage
 function showNotes(uid) {
@@ -177,6 +179,8 @@ function showNotes(uid) {
   askName(uid);
   un = uid;
   getAll();
+  if(uid)
+  document.getElementById("notebookName").innerHTML=`${uid}`;
 
   let html = "";
   notesObj.forEach(function (element, index) {
@@ -186,7 +190,7 @@ function showNotes(uid) {
         text = "(imp)";
         html += `
             <div onclick="update()"  onmouseover="showCopybtn.call(this)" onmouseout="hideCopybtn.call(this)" class="noteCard my-2 mx-2 card highlight" style="width: 18rem;order:0;">
-                    <div class="card-body ">
+                    <div class="card-body " id="card-body>
                     <p class=""> ${unameObj[index]}</p>
                     <span class="card-title"> ${titlesObj[index]}</span>
                     <button style="display:none;" onclick="sharetxt.call(this)" class="sharebtn"><img style="height: 25px;border-radius:10px;" src="icon.png" alt="..." /></button>
@@ -342,27 +346,117 @@ function removeDuplicates(arr) {
 
 
 let search = document.getElementById("searchTxt");
+// let cardTxt , titleTxt,cardOldTxt,titleOldTxt;
+search.addEventListener("input", searchNotes);
 
-search.addEventListener("input", function () {
-  let inputVal = search.value.toLowerCase();
-  // console.log('Input event fired!', inputVal);
+
+function searchNotes() {
+  console.log("input");
+  // let inputVal = search.value.toLowerCase();
+  let inputVal = search.value;
+
+  if(inputVal){
+  console.log('Input event fired!', inputVal);
   let noteCards = document.getElementsByClassName("noteCard");
   Array.from(noteCards).forEach(function (element) {
     // let cardTxt = element.getElementsByTagName("p")[0].innerText;
-    let cardTxt = element.querySelector(".card-text").innerText;
-    cardTxt = cardTxt.toLowerCase();
-    let titleTxt = element.querySelector(".card-title").innerText;
-    titleTxt = titleTxt.toLowerCase();
+    cardTxt = element.querySelector(".card-text");
+    // cardTxt.innerText = cardTxt.innerText.toLowerCase();
+    titleTxt = element.querySelector(".card-title");
+    // titleTxt=titleOldTxt;
+    // titleTxt.innerText = titleTxt.innerText.toLowerCase();
+    inputVal = inputVal.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+    let pattern = new RegExp(`${inputVal}`,"gi");
 
-    if (cardTxt.includes(inputVal) || titleTxt.includes(inputVal)) {
+    if (cardTxt.innerText.toLowerCase().includes(inputVal.toLowerCase()) || titleTxt.innerText.toLowerCase().includes(inputVal.toLowerCase())) {
       element.style.display = "block";
+      cardTxt.innerHTML= cardTxt.textContent.replace(pattern, match=>`<mark>${match}</mark>`);
+      titleTxt.innerHTML= titleTxt.textContent.replace(pattern, match=>`<mark>${match}</mark>`);
+     
+
     } else {
       element.style.display = "none";
     }
     // console.log(cardTxt);
   });
+}else
+showNotes(un);
+}
+
+function focusSearch(){
+  search.focus();
+  search.setAttribute("value","");
+  
+}
+
+// Mousetrap.bind('/', focusSearch);
+
+document.addEventListener('keyup', function (event) {
+  if ( event.key === '/') {
+    search.focus();
+      
+      
+  }
 });
 
+document.addEventListener('keyup', function (event) {
+  if (event.ctrlKey && event.key === 'q') {
+    addNoteModal();
+    document.getElementById("addTitle").focus();
+      
+      
+  }
+});
+
+document.addEventListener('keyup',function(event){
+  if (event.ctrlKey && event.key == "Enter"){
+    document.getElementById("addTxt").focus();
+    // const form = document.getElementById('addNoteForm')
+     
+    
+        // event.preventDefault();
+
+}
+
+});
+
+
+// search.addEventListener("input", function () {
+//   console.log("input");
+//   let inputVal = search.value.toLowerCase();
+//   if(inputVal){
+//   console.log('Input event fired!', inputVal);
+  
+//   let noteCards = document.getElementsByClassName("noteCard");
+//   Array.from(noteCards).forEach(function (element) {
+
+//     cardOld = element.querySelector(".card-text");
+//     inputVal = inputVal.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
+//     let pattern = new RegExp(`${inputVal}`,"gi");
+//     cardOld.innerHTML= cardOld.textContent.replace(pattern, match=>`<mark>${match}</mark>`);
+
+
+//   });
+//   }
+// });
+
+
+
+
+
+
+
+// var oldText = document.getElementById("text").innerHTML;
+// function search(e) {
+// let searched = document.getElementById("search").value.trim();
+// if (searched !== "") {
+// let text = oldText;
+// let re = new RegExp(searched,"g"); // search for all instances
+// let newText = text.replace(re, <mark>+searched+</mark>);
+// document.getElementById("text").innerHTML = newText;
+// }
+// }
 // function search(e) {
 // 	let searched = document.getElementById("search").value.trim();
 //   if (searched !== "") {
@@ -372,6 +466,8 @@ search.addEventListener("input", function () {
 // 		document.getElementById("text").innerHTML = newText;
 //   }
 // }
+
+
 
 
 let pdAll = document.getElementById("pdAll");
@@ -433,18 +529,19 @@ dNimp.addEventListener("click", function () {
 // 2. Mark a note as Important*
 // 3. Separate notes by user*
 // 4. Sync and host to web server *
-// 5.mark the search text highlighted
-// 6. make the being editted card draggable.
+// 5.mark the search text highlighted*
 // 7.share a note *
 // 8. copy a note*
-// 9. some keyboard shortcuts can be added.
-// 10. while adding a note , by keyboard itself the form filed can be switched.
 // 11 prompt hatao*
 // 12 jaise hi nayi notebook bane waise hi show krre list me . no one note criteria.*
 // 13 add note input from inside a button/icon*
 // 14 search must include title search also. *
 // 15 share button#
 // 16 if coming for first time set user name . Otherwise show the starter page . then he can select the notebook himself.*
+// 18 title editting*
+// 9. some keyboard shortcuts can be added.*
+// 10. while adding a note , by keyboard itself the form filed can be switched.#
+
 // 17 sort feature
-// 18 title editting
+// 6. make the being editted card draggable.
 

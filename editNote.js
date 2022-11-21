@@ -8,7 +8,10 @@ if (temp == null) {
 }
 
 // to open the add note box.......
-document.getElementById("primaryAddBtn").addEventListener("click",()=>{
+document.getElementById("primaryAddBtn").addEventListener("click",addNoteModal);
+
+function addNoteModal()
+{
     if(tempObj.length){
     if(document.getElementById("primaryAddNote").style.display=="block"){
         document.getElementById("primaryAddNote").style.display="none";
@@ -29,7 +32,7 @@ else{
 
     },3000);
 }
-});
+}
 
 
 function getA() {
@@ -38,6 +41,13 @@ function getA() {
         notesObj = [];
     } else {
         notesObj = JSON.parse(notes);
+    }
+
+    let titles = localStorage.getItem("titles");
+    if (titles == null) {
+      titlesObj = [];
+    } else {
+      titlesObj = JSON.parse(titles);
     }
     
     let id = localStorage.getItem("id");
@@ -96,37 +106,50 @@ function update(){
             // on();
             // element.classList.add("zoom");
             let noTextAreas = document.getElementsByClassName('textarea').length;
+            let titleTxt = element.querySelector(".card-title");
             let cardTxt = element.querySelector(".card-text");
             let noteId = element.querySelector(".noteId").innerText;
             Number(noteId);
             // console.log("noteId" + noteId);
             if (noTextAreas == 0) {
                 // console.log(cardTxt);
-                let html = cardTxt.innerHTML;
+                let html2 = titleTxt.innerText;
+                let html = cardTxt.innerText;
                 // console.log(html);
-                cardTxt.innerHTML = ` <textarea autofocus class="textarea form-control" id="textarea" column="10" rows="3">${html}</textarea>`;
+                titleTxt.innerHTML = ` <textarea  class="textarea form-control" id="Textarea" column="10" rows="1">${html2}</textarea>`;
+                cardTxt.innerHTML = ` <textarea style="margin:10px 0px" autofocus class="textarea form-control" id="textarea" column="10" rows="3">${html}</textarea>`;
+
             }
             //listen for the blur event on textarea
             let textarea = document.getElementById('textarea');
+            let textarea2 = document.getElementById('Textarea');
             textarea.setSelectionRange(textarea.value.length, textarea.value.length);
             textarea.focus();
             on();
-            textarea.addEventListener('blur', function () {
+            // elem.addEventListener('blur', function () {
+            document.getElementById("overlay").onclick = function (e) {
                 cardTxt.innerHTML = textarea.value;
+                titleTxt.innerHTML = textarea2.value;
 
                 getA();
                 idsObj.forEach(function (e, index) {
                     if (e == noteId || e == null)
                         notesObj[index] = textarea.value;
+                        titlesObj[index]= textarea2.value;
                 });
                 localStorage.setItem("notes", JSON.stringify(notesObj));
+                localStorage.setItem("titles", JSON.stringify(titlesObj));
+
 
                 // console.log(localStorage);
 
                 elem.classList.remove("zoom");
                 off();
+                document.getElementById("searchTxt").value="";
+                showNotes(un);
 
-            });
+            // });
+            }
         });
     });
 }

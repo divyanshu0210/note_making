@@ -21,3 +21,13 @@ Array.from(listSelf).forEach(function (element) {
 });
 });
 }
+
+document.addEventListener('keyup', function (event) {
+    if (event.key === '`')
+     {
+      document.getElementById("showNotebook").click();
+        
+        
+    }
+  });
+  
